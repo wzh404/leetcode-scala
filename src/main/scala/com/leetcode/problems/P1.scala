@@ -14,6 +14,7 @@ import scala.collection.mutable.Map
   * Because nums[0] + nums[1] = 2 + 7 = 9,
   * return [0, 1].
   *
+  * @author wangzunhui
   */
 object P1 {
   def twoSum(nums : Array[Int], target: Int) : Set[(Int, Int)] = {
