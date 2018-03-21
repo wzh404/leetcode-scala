@@ -1,44 +1,31 @@
 package com.leetcode.algorithm.sort
 
+/**
+  * one pivot one-way scan quick sort.
+  */
 object OnePivotScanQuickSort {
-  def partition(list:Array[Int], left : Int, right:Int) : Int = {
-    val base:Int = list(left);
+  def forwardScan(a: Array[Int], left: Int, right: Int): Unit ={
+    if (left >= right) return;
+
     var i = left;
-    var j:Int = right;
+    var j = left + 1;
+    val pivot: Int = a(i);
 
-    while(i < j){
-      while(i < j && list(j) >= base){
-        j = j - 1;
-      }
-      if (i < j){
-        list(i) = list(j);
+    while(j < right){
+      if (a(j) < pivot){
+        swap(a, i, j)
         i = i + 1;
       }
-
-      while(i < j && list(i) < base){
-        i = i + 1;
-      }
-      if (i < j){
-        list(j) = list(i);
-        j = j - 1;
-      }
+      j = j + 1;
     }
-
-    list(i) = base;
-    i
+    swap(a, left, i);
+    forwardScan(a, left, i - 1)
+    forwardScan(a, i + 1, right)
   }
 
-  def sort(list:Array[Int], left: Int, right:Int): Unit ={
-    if (left < right){
-      val i:Int = partition(list, left, right)
-      sort(list, left, i - 1)
-      sort(list, i + 1, right)
-    }
-  }
-
-  def main(args: Array[String]): Unit ={
-    val l:Array[Int] = Array(72,6,57,88,60,42,83,73,48,85)
-    sort(l, 0, l.size - 1)
-    println(l.mkString(","))
+  def swap(a: Array[Int], i: Int, j:Int): Unit = {
+    val t = a(i);
+    a(i) = a(j)
+    a(j) = t
   }
 }
