@@ -12,11 +12,11 @@ object DualPivotQuickSort {
       swap(a, l, r)
     }
 
-    val pivot1: Int = a(l);
-    val pivot2: Int = a(r);
-    var i: Int = l;
-    var j: Int = r;
-    var k: Int = l + 1;
+    val pivot1 = a(l);
+    val pivot2 = a(r);
+    var i = l;
+    var j = r;
+    var k = l + 1;
 
     var scanned = false;
     while (k < j && !scanned) {
