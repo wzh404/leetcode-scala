@@ -1,6 +1,6 @@
 package com.leetcode.algorithm.sort
 
-case class SkipList(v: Int, down: Array[SkipList], next: SkipList)
+case class SkipList(v: Int, level: Array[SkipList])
 
 object SkipList {
   private val P = 0.5
@@ -9,32 +9,47 @@ object SkipList {
   var level = 0;
 
   def init(level:Int): Unit ={
-    top = new SkipList(null, new Array(level), null)
+    top = new SkipList(0, new Array[SkipList](level))
   }
 
-  def search(v:Int):SkipList ={
-    var skip = false
-
+  def insert(v:Int):Unit ={
     var x = top
-    var tmp = new Array[SkipList](8)
+    val tmp = new Array[SkipList](8)
     for (i <- level.to(0, -1)){
-      while(x.down(i) != null && x.down(i).v < v){
-        x = x.down(i)
+      while(x.level(i) != null && x.level(i).v < v){
+        x = x.level(i)
       }
       tmp(i) = x
     }
-    x = x.down(0)
+    x = x.level(0)
 
+    if (x ==  null || x.v != v){
+      val newLevel = randomLevel
+      println(newLevel)
+      if (newLevel > level){
+        for (i <- level to newLevel)
+          tmp(i) = top
 
+        level = newLevel
+      }
 
-    // to down
-
-
-    return null;
+      val node = new SkipList(v, new Array[SkipList](newLevel + 1))
+      for (i <- 0 to newLevel){
+        node.level(i) = tmp(i).level(i)
+        tmp(i).level(i) = node
+      }
+    }
   }
 
-  def insert(v: Int): Unit = {
-
+  def contains(o: Int) = {
+    var x = top
+    for (i <- level.to(0, -1)) {
+      while (x.level(i) != null && x.level(i).v < o) {
+        x = x.level(i)
+      }
+    }
+    x = x.level(0)
+    x != null && x.v == o
   }
 
   def randomLevel = {
@@ -43,6 +58,8 @@ object SkipList {
   }
 
   def main(args: Array[String]): Unit = {
-    println(randomLevel)
+    init(3)
+    insert(5)
+    println(contains(5))
   }
 }
