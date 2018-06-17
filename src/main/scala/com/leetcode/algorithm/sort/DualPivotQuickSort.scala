@@ -34,7 +34,7 @@ object DualPivotQuickSort {
           j = j - 1;
           if (j <= k) {
             scanned = true
-          };
+          }
         }
 
         if (!scanned) {
