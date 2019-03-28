@@ -16,23 +16,44 @@ object P4 {
       val left : Int = ma + mb
 
       if (p == left) {
-        if (a(ma) > b(mb)) {
-          println(b(mb))
-        } else {
-          println(a(ma))
+        if (even) {
+          if (ma > 0 && mb > 0) {
+            if (a(ma - 1) > b(mb - 1)) println(a(ma - 1)) else println(b(mb - 1))
+          } else if (ma > 0) {
+            println(a(ma - 1))
+          } else if (mb > 0) {
+            println(b(mb - 1))
+          }
         }
+        if (a(ma) > b(mb)) println(b(mb)) else println(a(ma))
         ok = false
       } else if (p > left) {
         if (a(ma) < b(mb)) {
-          a1 = ma
+          if (ma < a2) {
+            a1 = ma + 1
+          } else {
+            b1 = mb + 1
+          }
         } else {
-          b1 = mb
+          if (mb < b2) {
+            b1 = mb + 1
+          } else {
+            a1 = ma + 1
+          }
         }
       } else {
         if (a(ma) < b(mb)) {
-          b2 = mb
+          if (mb > 0) {
+            b2 = mb - 1
+          } else {
+            a2 = ma - 1
+          }
         } else {
-          a2 = ma
+          if (ma > 0) {
+            a2 = ma - 1
+          } else {
+            b2 = mb - 1
+          }
         }
       }
     }
@@ -42,6 +63,9 @@ object P4 {
   def main(args: Array[String]): Unit = {
     val a: Array[Int] = Array(2, 4, 7, 11, 14, 20,23,34)
     val b = Array(1, 5, 8, 9, 19, 21)
+
+//    val a: Array[Int] = Array(1,3)
+//    val b = Array(2,4)
 
     mean(a, b)
   }
