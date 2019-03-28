@@ -7,29 +7,28 @@ object P4 {
     var b1: Int = 0
     var b2: Int = b.length - 1
     val even: Boolean = (a.length + b.length) % 2 == 0
-    val p1 = (a.length + b.length) / 2
+    val p = (a.length + b.length) / 2
 
-    while(true) {
-      var ma = a1 + (a2 - a1) / 2
-      var mb = b1 + (b2 - b1) / 2
-      var left : Int = ma + mb
+    var ok : Boolean = true
+    while(ok) {
+      val ma = a1 + (a2 - a1) / 2
+      val mb = b1 + (b2 - b1) / 2
+      val left : Int = ma + mb
 
-      if (p1 == left) {
+      if (p == left) {
         if (a(ma) > b(mb)) {
           println(b(mb))
         } else {
           println(a(ma))
         }
-        return 0
-      }
-
-      if (p1 > left) {
+        ok = false
+      } else if (p > left) {
         if (a(ma) < b(mb)) {
           a1 = ma
         } else {
           b1 = mb
         }
-      } else if (p1 < left){
+      } else {
         if (a(ma) < b(mb)) {
           b2 = mb
         } else {
@@ -37,7 +36,7 @@ object P4 {
         }
       }
     }
-    return 0;
+    return 0
   }
 
   def main(args: Array[String]): Unit = {
