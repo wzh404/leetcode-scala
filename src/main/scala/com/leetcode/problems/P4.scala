@@ -1,7 +1,23 @@
 package com.leetcode.problems
 
+/**
+  * There are two sorted arrays nums1 and nums2 of size m and n respectively.
+  *
+  * Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+  *
+  * Example 1:
+  *
+  *   nums1 = [1, 3]
+  *   nums2 = [2]
+  *   The median is 2.0
+  * Example 2:
+  *
+  *   nums1 = [1, 2]
+  *   nums2 = [3, 4]
+  *   The median is (2 + 3)/2 = 2.5
+  */
 object P4 {
-  def mean(a: Array[Int], b: Array[Int]): Double = {
+  def median(a: Array[Int], b: Array[Int]): Double = {
     var a1: Int = 0
     var a2: Int = a.length - 1
     var b1: Int = 0
@@ -9,6 +25,7 @@ object P4 {
     val even: Boolean = (a.length + b.length) % 2 == 0
     val p = (a.length + b.length) / 2
 
+    var medianTotalValue: Int = 0
     var ok : Boolean = true
     while(ok) {
       val ma = a1 + (a2 - a1) / 2
@@ -18,14 +35,20 @@ object P4 {
       if (p == left) {
         if (even) {
           if (ma > 0 && mb > 0) {
-            if (a(ma - 1) > b(mb - 1)) println(a(ma - 1)) else println(b(mb - 1))
+            val v = if (a(ma - 1) > b(mb - 1)) a(ma - 1) else b(mb - 1)
+            println(v)
+            medianTotalValue += v
           } else if (ma > 0) {
             println(a(ma - 1))
+            medianTotalValue += a(ma - 1)
           } else if (mb > 0) {
             println(b(mb - 1))
+            medianTotalValue += b(mb - 1)
           }
         }
-        if (a(ma) > b(mb)) println(b(mb)) else println(a(ma))
+        val v = if (a(ma) > b(mb)) b(mb) else a(ma)
+        println(v)
+        medianTotalValue += v
         ok = false
       } else if (p > left) {
         if (a(ma) < b(mb)) {
@@ -57,7 +80,8 @@ object P4 {
         }
       }
     }
-    return 0
+
+    if (even) medianTotalValue/2.0 else medianTotalValue/1.0
   }
 
   def main(args: Array[String]): Unit = {
@@ -67,6 +91,6 @@ object P4 {
 //    val a: Array[Int] = Array(1,3)
 //    val b = Array(2,4)
 
-    mean(a, b)
+    println(median(a, b))
   }
 }
