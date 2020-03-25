@@ -1,7 +1,5 @@
 package com.leetcode.algorithm.sort
 
-import com.leetcode.algorithm.sort.OnePivotD3ScanQuickSort.sort
-
 object OnePivotD3TwoWayScanQuickSort {
   def sort(a: Array[Int], l: Int, r: Int): Unit = {
     if (l >= r) return;
