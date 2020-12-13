@@ -1,32 +1,32 @@
 package com.leetcode.offer
 
-case class LinkList(key: Int, var next: LinkList)
 /**
-  * reverse a link list
+  * 反转链表
+  * @param head
   */
-object ReverseLinkList {
-  def insert(linkList: LinkList, key:Int): Unit = {
-    var l = linkList
-    var p = linkList
+case class LinkList(head: Node) {
+  def insert(key:Int): Unit = {
+    var l = this.head
+    var p = this.head
     while (l != null) {
       p = l
       l = l.next
     }
 
-    p.next = LinkList(key, null)
+    p.next = Node(key, null)
   }
 
-  def print(head: LinkList): Unit ={
-    var l = head
+  def print(): Unit ={
+    var l = this.head
     while (l != null) {
       System.out.println(l.key)
       l = l.next
     }
   }
 
-  def reverse(head: LinkList): LinkList = {
+  def reverse(): LinkList = {
     var h = head
-    var p:LinkList = null
+    var p:Node = null
     var n = head.next
 
     while (n != null) {
@@ -36,20 +36,26 @@ object ReverseLinkList {
       n = n.next
     }
     h.next = p
-    return h
+    return LinkList(h)
   }
+}
 
+case class Node(key: Int, var next: Node)
+/**
+  * reverse a link list
+  */
+object ReverseLinkList {
   def main(args: Array[String]): Unit = {
-    val head = LinkList(1, null)
-    insert(head, 2)
-    insert(head, 3)
-    insert(head, 4)
-    insert(head, 5)
-    insert(head, 6)
+    val head = LinkList(Node(1, null))
+    head.insert(2)
+    head.insert(3)
+    head.insert(4)
+    head.insert(5)
+    head.insert(6)
 
-    print(head)
-System.out.println("-----------------")
-    val h = reverse(head)
-    print(h)
+    head.print()
+    System.out.println("-----------------")
+    val h = head.reverse()
+    h.print()
   }
 }
